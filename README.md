@@ -1,0 +1,2 @@
+# JenArgo
+Jenkins Pipeline + ArgoCD
