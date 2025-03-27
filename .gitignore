@@ -2,6 +2,14 @@
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
 # Binaries for programs and plugins
+.idea/
+
+config/config.dev.yaml
+config/config.uat.yaml
+config/config.prod.yaml
+build.sh
+
+
 *.exe
 *.exe~
 *.dll
@@ -23,3 +31,7 @@ go.work.sum
 
 # env file
 .env
+
+app
+
+log/
