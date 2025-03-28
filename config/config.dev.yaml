@@ -17,7 +17,7 @@ mysql:
   host: "10.0.0.101"
   port: 3306
   user: "JenArgo"
-  password: "JenArgo123!@#"
+  password: ""
   dbname: "JenArgo"
   log_mode: false
   max_open_conns: 100  # 最大连接数
@@ -34,12 +34,12 @@ ci_cd:
 
 gitlab:
   gitlab_url: "https://gitlab.evescn.com"
-  gitlab_token: "bJ-Nm6BZCxG6n-aF8aVt"
+  gitlab_token: ""
 
 argocd:
   argocd_url: "https://test-argocd.evescn.com"
   argocd_name: "admin"
-  argocd_password: "admin"
+  argocd_password: ""
   argocd_repo : 'https://gitlab.evescn.com/ops/argocd-apps.git'
   argocd_log_follow: false
   argocd_log_tailLines: 200
