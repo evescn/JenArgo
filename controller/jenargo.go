@@ -41,7 +41,7 @@ func (*cicd) JenkinsCiCd(ctx *gin.Context) {
 		return
 	}
 
-	err := service.CiCd.JenkinsCiCd(params.En, params.AppName, params.RepoName, params.Builder)
+	err := service.CiCd.JenkinsCiCd(params.En, params.AppName, params.RepoName, params.Builder, params.Tag)
 	if err != nil {
 		common.ResponseFailed(ctx, err.Error())
 		return

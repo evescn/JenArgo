@@ -5,6 +5,7 @@ type JenArgoCiCd struct {
 	AppName  string `json:"app_name"`
 	RepoName string `json:"repo_name"`
 	Builder  string `json:"builder"`
+	Tag      bool   `json:"tag"`
 }
 
 type JenArgoUpdateCiCd struct {

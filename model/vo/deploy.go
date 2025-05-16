@@ -19,7 +19,7 @@ func (d *DeployRequest) ToDeploy() *po.Deploy {
 }
 
 type DeployDelRequest struct {
-	ID int64 `json:"id"`
+	ID int32 `json:"id"`
 }
 
 type DeploysListResponse struct {

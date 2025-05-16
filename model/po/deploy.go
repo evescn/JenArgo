@@ -3,7 +3,7 @@ package po
 import "time"
 
 type Deploy struct {
-	ID        int64 `json:"id" gorm:"primary_key"`
+	ID        int32 `json:"id" gorm:"primary_key"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time `sql:"index"`

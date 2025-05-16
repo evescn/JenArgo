@@ -56,7 +56,7 @@ func (*deploy) List(en, appName, repoName string, page, size int) (*vo.DeploysLi
 }
 
 // Get 查询单个
-func (*deploy) Get(deployId int64) (*vo.DeployRequest, bool, error) {
+func (*deploy) Get(deployId int32) (*vo.DeployRequest, bool, error) {
 	data := new(vo.DeployRequest)
 	tx := db.GORM.Model(&po.Deploy{}).Where("id = ?", deployId).First(&data)
 	if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
@@ -122,7 +122,7 @@ func (*deploy) Update(d *po.Deploy) error {
 }
 
 // Delete 删除
-func (*deploy) Delete(deployId int64) error {
+func (*deploy) Delete(deployId int32) error {
 	data := new(po.Deploy)
 	data.ID = deployId
 	tx := db.GORM.Delete(&data)

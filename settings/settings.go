@@ -26,6 +26,7 @@ type AppConfig struct {
 	*CiCd          `mapstructure:"ci_cd"`
 	*GitLab        `mapstructure:"gitlab"`
 	*ArgoCD        `mapstructure:"argocd"`
+	*Rbac          `mapstructure:"rbac"`
 }
 
 type Admin struct {
@@ -75,6 +76,10 @@ type ArgoCD struct {
 	ArgoCDRope         string `mapstructure:"argocd_repo"`
 	ArgoCDLogFollow    bool   `mapstructure:"argocd_log_follow"`
 	ArgoCDLogTailLines string `mapstructure:"argocd_log_tailLines"`
+}
+
+type Rbac struct {
+	RbacUrl string `mapstructure:"rbac_url"`
 }
 
 func Init() (err error) {

@@ -45,11 +45,12 @@ func (*request) HttpRequest(method, service, url, privateToken string, body inte
 		req.Header.Add("Authorization", authHeader)
 	case "argo":
 		// 兼容 jenkins post 请求
-		//argoCDHeader := "Bearer " + base64.StdEncoding.EncodeToString([]byte(privateToken))
-		//req.Header.Add("Authorization", argoCDHeader)
 		req.Header.Set("Authorization", "Bearer "+privateToken)
-		//argoCDHeader2 := "argocd.token=" + base64.StdEncoding.EncodeToString([]byte(privateToken))
-		//req.Header.Add("Cookie", argoCDHeader2)
+	case "rbac":
+		// 兼容 jenkins post 请求
+		req.Header.Add("Authorization", privateToken)
+		req.Header.Add("Content-Type", "application/json")
+
 	}
 
 	// 发送请求

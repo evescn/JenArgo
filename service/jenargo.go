@@ -32,6 +32,7 @@ func (c *cicd) DeployCiCd(d *vo.DeployRequest) error {
 	}
 
 	// 更新数据
+	d.Tag = data.Tag
 	d.Status = 1
 	if data.HasScheduledTask && data.StartTime != "" {
 		// 启用了定时器 解析时间字符串
@@ -105,7 +106,7 @@ func (*cicd) triggerJenkins(task *vo.DeployRequest) error {
 }
 
 // JenkinsCiCd 开始部署
-func (*cicd) JenkinsCiCd(en, appName, repoName, builder string) error {
+func (*cicd) JenkinsCiCd(en, appName, repoName, builder string, tag bool) error {
 	data, has, err := dao.Deploy.Has(en, appName, repoName)
 	if err != nil {
 		return err
@@ -123,6 +124,7 @@ func (*cicd) JenkinsCiCd(en, appName, repoName, builder string) error {
 	now := time.Now().Local()
 	data.StartTime = now.Format("2006-01-02 15:04:05")
 	data.Builder = builder
+	data.Tag = tag
 
 	err = dao.Deploy.Update(data)
 	if err != nil {
@@ -134,7 +136,7 @@ func (*cicd) JenkinsCiCd(en, appName, repoName, builder string) error {
 
 // UpdateCiCd 更新CiCd流程
 func (cicd *cicd) UpdateCiCd(en, appName, repoName, branch string, codeCheck, buildStatus, deployStatus int) error {
-	var deployID int64
+	var deployID int32
 
 	// 使用 en 和 appName 获取数据
 	deploysData, err := dao.Deploy.List(en, appName, repoName, 1, 10)

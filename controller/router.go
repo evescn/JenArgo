@@ -37,11 +37,13 @@ func (*router) Setup() *gin.Engine {
 		ctx.String(http.StatusOK, settings.Conf.Version)
 	})
 
+	//r.Use(middleware.RbacAuth())
+
 	//gitlab
 	gitlab := r.Group("/api/gitlab/")
-	gitlab.GET("/groups", GitLab.GetGroupsList)
-	gitlab.GET("/projects", GitLab.GetProjectsList)
-	gitlab.GET("/project/branch", GitLab.GetProjectBranchList)
+	gitlab.GET("/groups", middleware.RbacAuth(), GitLab.GetGroupsList)
+	gitlab.GET("/projects", middleware.RbacAuth(), GitLab.GetProjectsList)
+	gitlab.GET("/project/branch", middleware.RbacAuth(), GitLab.GetProjectBranchList)
 
 	//app
 	app := r.Group("/api/app/")
@@ -49,24 +51,24 @@ func (*router) Setup() *gin.Engine {
 
 	//deploy
 	deploy := r.Group("/api/deploy/")
-	deploy.GET("/list", Deploy.List)
-	deploy.POST("/update", Deploy.Update)
-	deploy.POST("/del", Deploy.Delete)
+	deploy.GET("/list", middleware.RbacAuth(), Deploy.List)
+	deploy.POST("/update", middleware.RbacAuth(), Deploy.Update)
+	deploy.POST("/del", middleware.RbacAuth(), Deploy.Delete)
 	deploy.POST("/add", Deploy.Add)
 
 	//cicd
 	cicd := r.Group("/api/cicd/")
-	cicd.POST("/deployCiCd", CiCd.DeployCiCd)
+	cicd.POST("/deployCiCd", middleware.RbacAuth(), CiCd.DeployCiCd)
 	cicd.POST("/jenkinsCiCd", CiCd.JenkinsCiCd)
 	cicd.POST("/updateCiCd", CiCd.UpdateCiCd)
 
 	//argocd
 	argocd := r.Group("/api/argocd/")
-	argocd.POST("/session", ArgoCD.Session)
-	argocd.GET("/apps", ArgoCD.Apps)
-	argocd.GET("/image", ArgoCD.Image)
-	argocd.POST("/rollback", ArgoCD.Rollback)
-	argocd.GET("/log", ArgoCD.Log)
+	argocd.POST("/session", middleware.RbacAuth(), ArgoCD.Session)
+	argocd.GET("/apps", middleware.RbacAuth(), ArgoCD.Apps)
+	argocd.GET("/image", middleware.RbacAuth(), ArgoCD.Image)
+	argocd.POST("/rollback", middleware.RbacAuth(), ArgoCD.Rollback)
+	argocd.GET("/log", middleware.RbacAuth(), ArgoCD.Log)
 
 	return r
 }
